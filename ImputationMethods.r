@@ -113,8 +113,7 @@ iris_amelia_new<-iris_amelia_new[,-5]
 RMSEdata<-matrix(c(0.08,0.191,0.04,0.10,0.18,0.07,0.14,0.30,0.12,0.21,0.44,0.14,0.23,0.47,0.19,0.32,0.521,0.23),ncol=3)
 colnames(RMSEdata)<-c("MICE","Mean","Amelia")
 dataofRMSE <- data.matrix(RMSEdata, rownames.force = NA)
-barplot(dataofRMSE, main=" RMSE Comparision",
-        ylab="RMSE", col=c("darkblue","red", "green","pink","yellow","brown"))
+barplot(dataofRMSE, main=" RMSE Comparision", ylab="RMSE", col=c("black","red", "green","white","yellow","grey"))
 
 
 
