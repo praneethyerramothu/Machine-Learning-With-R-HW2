@@ -115,6 +115,32 @@ colnames(RMSEdata)<-c("MICE","Mean","Amelia")
 dataofRMSE <- data.matrix(RMSEdata, rownames.force = NA)
 barplot(dataofRMSE, main=" RMSE Comparision", ylab="RMSE", col=c("black","red", "green","white","yellow","grey"))
 
+# Missing values not Randomly generated code begins(Use mean)
+
+iris_mnar<-irismain[,2:5]#Keeping just the columns with numerical values and excluding id column
+tempval<-ncol(iris_mnar)
+numvalmis<-naelem(2)
+mnar<-ceiling(numvalmis/tempval) #calculating 'mnar' to equally distribute the missing values to every column
+iris_mnar_new<-as.matrix(expand.grid(1:nrow(iris_mnar),1:ncol(iris_mnar))) 
+iris_mnar_new<-matrix(iris_mnar_new[!is.na(iris_mnar[iris_mnar_new])],ncol=2)
+selected<-inds[sample(nrow(iris_mnar_new),mnar),] # Generating missing values to impute in the data
+iris_mnar[selected]<-NA
+iris_mnar # has NA values imputed
+#Using mean method to impute values at the missing values
+meanval_mnar<-mean(iris_mnar$SepalLengthCm,na.rm=TRUE)
+meanval1_mnar<-mean(iris_mnar$SepalWidthCm,na.rm=TRUE)
+meanval2_mnar<-mean(iris_mnar$PetalLengthCm,na.rm=TRUE)
+meanval3_mnar<-mean(iris_mnar$PetalWidthCm,na.rm=TRUE)
+#substituting missing values in each column
+iris_mnar$SepalLengthCm[is.na(iris_mnar$SepalLengthCm)]<-meanval_mnar
+iris_mnar$SepalWidthCm[is.na(iris_mnar$SepalWidthCm)]<-meanval1_mnar
+iris_mnar$PetalLengthCm[is.na(iris_mnar$PetalLengthCm)]<-meanval2_mnar
+iris_mnar$PetalWidthCm[is.na(iris_mnar$PetalWidthCm)]<-meanval3_mnar
+iris_mnar #calculate error using RMSE
+
+
+## Missing values not Randomly generated code ends
+
 
 
 
